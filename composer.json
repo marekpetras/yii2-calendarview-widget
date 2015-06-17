@@ -1,0 +1,24 @@
+{
+	"name": "marekpetras/yii2-calendarview",
+	"description": "CalendarView widget for Yii 2 Framework.",
+	"keywords": ["yii2", "extension", "widget", "calendar", "view", "dataprovider"],
+	"homepage": "https://github.com/marekpetras/yii2-calendarview",
+	"type": "yii2-extension",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Marek Petras",
+			"email": "mark@markpetras.eu"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"marekpetras\\calendarview\\": "/"
+		}
+	}
+}

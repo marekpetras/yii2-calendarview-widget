@@ -1,7 +1,7 @@
 # yii2-calendarview-widget
 
 Yii2 CalendarView Widget
-========================
+======================
 
 About
 -----
@@ -11,6 +11,12 @@ Using Bootstrap 3 and jQuery to create a responsive calendar widget which displa
 
 ![CalendarView Widget](https://dl.dropboxusercontent.com/u/44806680/yii2-calendarview-widget.png "CalendarView Widget")
 
+Project page
+------------
+
+[GitHub](https://github.com/marekpetras/yii2-calendarview)
+[Issues or Suggestions](https://github.com/marekpetras/yii2-calendarview/issues)
+
 Installation
 ------------
 
@@ -19,13 +25,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist marekpetras/yii2-calendarview-widget "dev-master"
+php composer.phar require --prefer-dist marekpetras/yii2-calendarview "dev-master"
 ```
 
 or add
 
 ```
-"marekpetras/yii2-calendarview-widget": "dev-master"
+"marekpetras/yii2-calendarview": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
@@ -38,18 +44,20 @@ To use this widget, you will need a controller and a view:
 
 Lets say you got a table with a standard model and search provider (instanceof [\yii\data\DataProviderInterface](http://www.yiiframework.com/doc-2.0/yii-data-dataproviderinterface.html)) that you use in your [GridView](http://www.yiiframework.com/doc-2.0/yii-grid-gridview.html) for example :
 
-```sql
+~~~
+[sql]
 CREATE TABLE `calendar` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Date',
   `val` int(11) NOT NULL COMMENT 'Value',
   PRIMARY KEY (`id`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-```
+~~~
 
 #### models/Calendar.php ####
 just a standard activity record model for instance
-```php
+~~~
+[php]
 class Calendar extends \yii\db\ActiveRecord
 {
     /**
@@ -89,11 +97,12 @@ class Calendar extends \yii\db\ActiveRecord
         ];
     }
 }
-```
+~~~
 
 #### models/search/CalendarSearch.php ####
 just a standard search provider
-```php
+~~~
+[php]
 class CalendarSearch extends Calendar
 {
     public function search($params)
@@ -119,13 +128,14 @@ class CalendarSearch extends Calendar
         return $dataProvider;
     }
 }
-```
+~~~
 
 then you will need a controller
 
 #### controllers/CalendarController.php ####
 
-```php
+~~~
+[php]
 class CalendarController extends Controller
 {
     public function actionIndex()
@@ -138,12 +148,13 @@ class CalendarController extends Controller
             ]);
     }
 }
-```
+~~~
 
 and the view
 
 #### views/calendar/index.php ####
-```php
+~~~
+[php]
 use marekpetras\calendarview\CalendarView;
 
 echo CalendarView::widget(
@@ -184,5 +195,4 @@ echo CalendarView::widget(
 
     ]
 );
-```
-
+~~~

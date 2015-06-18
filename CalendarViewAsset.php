@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @author Marek Petras <mark@markpetras.eu>
+ * @link https://github.com/marekpetras/yii2-calendar/
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version 1.0.0
+ */
+
 namespace marekpetras\calendarview;
 
 use yii\web\AssetBundle;

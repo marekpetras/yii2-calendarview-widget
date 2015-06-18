@@ -1,8 +1,9 @@
 <div id="<?=$id?>" class="calendar">
 
-<h1><?=$title?></h1>
-<?php
-echo $calendar;
-?>
+<?php if ($title):?>
+    <h1><?=$title?></h1>
+<?php endif;?>
+
+<?=$calendar?>
 
 </div>

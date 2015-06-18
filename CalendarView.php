@@ -1,12 +1,9 @@
 <?php
 
 /**
- * calendar widget
- *
- * @author Marek Petras <mark@markpetras.eu>
  * @link https://github.com/marekpetras/yii2-calendar/
+ * @copyright Copyright (c) 2016 Marek Petras
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
- * @version 1.0.0
  */
 
 namespace marekpetras\calendarview;
@@ -27,6 +24,73 @@ use yii\web\JsExpression;
 use yii\web\AssetBundle;
 use \Closure;
 
+/**
+ * CalendarView displays models provided by DataPRoviderInterface in a neat calendar
+ *
+ * Very simple usage
+ *
+ * Controller
+ * ~~~
+ * class CalendarController extends Controller
+ * {
+ *     public function actionIndex()
+ *     {
+ *         $searchModel = new CalendarSearch;
+ *         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+ *
+ *         return $this->render('index', [
+ *                 'dataProvider' => $dataProvider
+ *             ]);
+ *     }
+ * }
+ * ~~~
+ *
+ * View
+ * ~~~
+ * use marekpetras\calendarview\CalendarView;
+ *
+ * echo CalendarView::widget(
+ *     [
+ *         // mandatory
+ *         'dataProvider'  => $dataProvider,
+ *         'dateField'     => 'date',
+ *         'valueField'    => 'value',
+ *
+ *         // optional params with their defaults
+ *         'weekStart' => 1, // date('w') // which day to display first in the calendar
+ *         'title'     => 'Calendar',
+ *
+ *         'views'     => [
+ *             'calendar' => '@marekpetras/calendarview/views/calendar',
+ *             'month' => '@marekpetras/calendarview/views/month',
+ *             'day' => '@marekpetras/calendarview/views/day',
+ *         ],
+ *         'startYear' => date('Y') - 1,
+ *         'endYear' => date('Y') + 1,
+ *
+ *         'link' => false,
+ *
+ *         alternates to link , is called on every models valueField, used in Html::a( valueField , link )
+ *         'link' => 'site/view',
+ *         'link' => function($model,$calendar){
+ *             return ['calendar/view','id'=>$model->id];
+ *         },
+ *
+ *
+ *         'dayRender' => false,
+ *
+ *         alternate to dayRender
+ *         'dayRender' => function($model,$calendar) {
+ *             return '<p>'.$model->id.'</p>';
+ *         },
+ *
+ *     ]
+ * );
+ * ~~~
+ *
+ * @author Marek Petras <mark@markpetras.eu>
+ * @version 1.0.0
+ */
 class CalendarView extends \yii\base\Widget
 {
     /**
@@ -35,27 +99,62 @@ class CalendarView extends \yii\base\Widget
     public $dataProvider;
 
     /**
-     * @var which field to take as a value for the date (to display in the calendar)
+     * @var str which field to take as a value for the date (to display in the calendar)
      */
     public $valueField;
 
     /**
-     * @var which field to take as a datefield
+     * @var str which field to take as a datefield
      */
     public $dateField;
 
+    /**
+     * @var int which day display as first in the calendar, should be date('w')
+     */
     public $weekStart = 1; // date('w')
 
+    /**
+     * @var str calendar title displayed above the calendar
+     */
     public $title = 'Calendar';
+
+    /**
+     * @var mixed link on each calendar entry
+     *
+     * bool false to not have a link
+     * mixed value to pass to \yii\web\Html::a( $model->{$valueField}, $link
+     * Closure to return value to pass to \yii\web\Html::a( $model->{$valueField}, $link )
+     * Closure signature is function ($model, CalendarView $widget)
+     */
     public $link = false;
+
+    /**
+     * @var mixed day renderer
+     *
+     * bool false to render each item by default as <p><a href=$this->link>$model->valueField</a></p>
+     * Closure to return the markup to pass into the day render view
+     * Closure signature is function ($model, CalendarView $widget)
+     */
     public $dayRender = false;
 
-    // defined views
+    /**
+     * @var array predefined views, override for your own, make sure its readable by $this->view->render()
+     */
     public $views = [
         'calendar' => '@marekpetras/calendarview/views/calendar',
         'month' => '@marekpetras/calendarview/views/month',
         'day' => '@marekpetras/calendarview/views/day',
     ];
+
+    /**
+     * @var int which year to render from
+     */
+    public $startYear = null;
+
+    /**
+     * @var int which year to render to
+     */
+    public $endYear = null;
 
     // local
     private $models = [];
@@ -103,6 +202,14 @@ class CalendarView extends \yii\base\Widget
             throw new InvalidConfigException('Invalid data provider');
         }
 
+        if ( is_null($this->startYear) ) {
+            $this->startYear = date('Y') - 1;
+        }
+
+        if ( is_null($this->endYear) ) {
+            $this->endYear = date('Y') + 1;
+        }
+
         parent::init();
     }
 
@@ -114,7 +221,7 @@ class CalendarView extends \yii\base\Widget
     {
         $calendar = '';
 
-        foreach ( range(2014,2015) as $year ) {
+        foreach ( range($this->startYear,$this->endYear) as $year ) {
             foreach ( range(1,12) as $month ) {
                 $calendar .= $this->renderMonth($month, $year);
             }

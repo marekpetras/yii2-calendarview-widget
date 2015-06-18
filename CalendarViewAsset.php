@@ -18,7 +18,7 @@ use yii\web\AssetBundle;
  */
 class CalendarViewAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/marekpetras/yii2-calendarview/assets';
+    public $sourcePath = '@vendor/marekpetras/yii2-calendarview-widget/assets';
     public $js = [
         'marekpetras.calendar.js',
     ];

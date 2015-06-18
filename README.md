@@ -159,9 +159,9 @@ echo CalendarView::widget(
         'title'     => 'Calendar',
 
         'views'     => [
-            'calendar' => '@marekpetras/calendarview/views/calendar',
-            'month' => '@marekpetras/calendarview/views/month',
-            'day' => '@marekpetras/calendarview/views/day',
+            'calendar' => '@marekpetras/yii2-calendarview-widget/views/calendar',
+            'month' => '@marekpetras/yii2-calendarview-widget/views/month',
+            'day' => '@marekpetras/yii2-calendarview-widget/views/day',
         ],
 
         'startYear' => date('Y') - 1,

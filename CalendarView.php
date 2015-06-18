@@ -61,9 +61,9 @@ use \Closure;
  *         'title'     => 'Calendar',
  *
  *         'views'     => [
- *             'calendar' => '@marekpetras/calendarview/views/calendar',
- *             'month' => '@marekpetras/calendarview/views/month',
- *             'day' => '@marekpetras/calendarview/views/day',
+ *             'calendar' => '@marekpetras/yii2-calendarview-widget/views/calendar',
+ *             'month' => '@marekpetras/yii2-calendarview-widget/views/month',
+ *             'day' => '@marekpetras/yii2-calendarview-widget/views/day',
  *         ],
  *         'startYear' => date('Y') - 1,
  *         'endYear' => date('Y') + 1,
@@ -141,9 +141,9 @@ class CalendarView extends \yii\base\Widget
      * @var array predefined views, override for your own, make sure its readable by $this->view->render()
      */
     public $views = [
-        'calendar' => '@marekpetras/calendarview/views/calendar',
-        'month' => '@marekpetras/calendarview/views/month',
-        'day' => '@marekpetras/calendarview/views/day',
+        'calendar' => '@marekpetras/yii2-calendarview-widget/views/calendar',
+        'month' => '@marekpetras/yii2-calendarview-widget/views/month',
+        'day' => '@marekpetras/yii2-calendarview-widget/views/day',
     ];
 
     /**

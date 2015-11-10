@@ -77,15 +77,8 @@ class Calendar extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'foreign_id' => 'Foreign ID',
-            'user_id' => 'User ID',
-            'start' => 'Start',
-            'end' => 'End',
-            'duration' => 'Duration',
-            'calories' => 'Calories',
-            'peak_heartrate' => 'Peak Heartrate',
-            'average_heartrate' => 'Average Heartrate',
-            'has_details' => 'Has Details',
+            'date' => 'Date',
+            'val' => 'Value',
         ];
     }
 }
@@ -151,7 +144,7 @@ echo CalendarView::widget(
         // mandatory
         'dataProvider'  => $dataProvider,
         'dateField'     => 'date',
-        'valueField'    => 'value',
+        'valueField'    => 'val',
 
 
         // optional params with their defaults

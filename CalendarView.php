@@ -210,7 +210,25 @@ class CalendarView extends \yii\base\Widget
             $this->endYear = date('Y') + 1;
         }
 
+        $this->registerTranslations();
+
         parent::init();
+    }
+
+    /**
+     * Register translations with Yii
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['calendar'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@vendor/marekpetras/yii2-calendarview-widget/messages',
+            'fileMap' => [
+                'calendar' => 'calendar.php',
+            ],
+        ];
     }
 
     /**
@@ -327,7 +345,7 @@ class CalendarView extends \yii\base\Widget
         }
 
         return $this->view->render($this->views['month'],[
-            'title' => $first->format('F Y'),
+            'title' => Yii::t('calendar',$first->format('F')).$first->format(' Y'),
             'content' => $html,
             'monthRendered' => $first->format('Y')*12+$first->format('m'),
         ]);

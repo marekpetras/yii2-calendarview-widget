@@ -1,9 +1,10 @@
 <?php
 
 /**
- * @link https://github.com/marekpetras/yii2-calendar/
- * @copyright Copyright (c) 2016 Marek Petras
+ * @author Marek Petras <mark@markpetras.eu>
+ * @link https://github.com/marekpetras/yii2-calendarview-widget
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ * @version 1.0.1
  */
 
 namespace marekpetras\calendarview;
@@ -22,7 +23,8 @@ use yii\helpers\Json;
 use yii\web\View;
 use yii\web\JsExpression;
 use yii\web\AssetBundle;
-use \Closure;
+use Closure;
+use Exception;
 
 /**
  * CalendarView displays models provided by DataPRoviderInterface in a neat calendar
@@ -57,6 +59,7 @@ use \Closure;
  *         'valueField'    => 'value',
  *
  *         // optional params with their defaults
+ *         'unixTimestamp' => false, // indicate whether you use unix timestamp instead of a date/datetime format in the data provider
  *         'weekStart' => 1, // date('w') // which day to display first in the calendar
  *         'title'     => 'Calendar',
  *
@@ -76,7 +79,6 @@ use \Closure;
  *             return ['calendar/view','id'=>$model->id];
  *         },
  *
- *
  *         'dayRender' => false,
  *
  *         alternate to dayRender
@@ -87,9 +89,6 @@ use \Closure;
  *     ]
  * );
  * ~~~
- *
- * @author Marek Petras <mark@markpetras.eu>
- * @version 1.0.0
  */
 class CalendarView extends \yii\base\Widget
 {
@@ -156,6 +155,11 @@ class CalendarView extends \yii\base\Widget
      */
     public $endYear = null;
 
+    /**
+     * @var bool if we use unix timestamp in $dateField in $dataProvider
+     */
+    public $unixTimestamp = false;
+
     // local
     private $models = [];
     private $calendarFormat = 'Y-m-d';
@@ -172,7 +176,20 @@ class CalendarView extends \yii\base\Widget
         $this->dataProvider->setSort(['attributes'=>[$this->dateField]]);
 
         foreach ( $this->dataProvider->getModels() as $model ) {
-            $this->models[date($this->calendarFormat,strtotime($model->{$this->dateField}))][] = $model;
+            $time = $model->{$this->dateField};
+
+            if ( !$this->unixTimestamp ) {
+                $time = strtotime($time);
+            }
+
+            try {
+                $this->models[date($this->calendarFormat,$time)][] = $model;
+            }
+            catch (Exception $e) {
+                throw new InvalidConfigException('Invalid dateField/unixTimestamp combination.
+                        If you are using Unix Timestamp in your dateField in your data provider,
+                        set the $unixTimestamp to true in your widget configuration.');
+            }
         }
 
         $html = $this->renderCalendar();

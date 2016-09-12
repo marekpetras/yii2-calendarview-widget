@@ -9,13 +9,15 @@ About
 Ever needed to display table records as a calendar display using just a data provider and a date field?
 Using Bootstrap 3 and jQuery to create a responsive calendar widget which displays any number of events.
 
+Now with internalizations into 7 languages (slovak, czech, german, english, spanish, russian, and polish), for additional translations send pull requests please.
+
 ![CalendarView Widget](https://dl.dropboxusercontent.com/u/44806680/yii2-calendarview-widget.png "CalendarView Widget")
 
 Project page
 ------------
 
-[GitHub](https://github.com/marekpetras/yii2-calendarview)
-[Issues or Suggestions](https://github.com/marekpetras/yii2-calendarview/issues)
+[GitHub](https://github.com/marekpetras/yii2-calendarview-widget)
+[Issues or Suggestions](https://github.com/marekpetras/yii2-calendarview-widget/issues)
 
 Installation
 ------------
@@ -25,13 +27,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist marekpetras/yii2-calendarview "dev-master"
+php composer.phar require --prefer-dist marekpetras/yii2-calendarview-widget "^1.0"
 ```
 
 or add
 
 ```
-"marekpetras/yii2-calendarview": "dev-master"
+"marekpetras/yii2-calendarview": "^1.0"
 ```
 
 to the require section of your `composer.json` file.

@@ -2,15 +2,15 @@
 
 /**
  * @author Marek Petras <mark@markpetras.eu>
- * @link https://github.com/marekpetras/yii2-calendar/
+ * @link https://github.com/marekpetras/yii2-calendarview-widget
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 namespace marekpetras\calendarview;
 
-use \DateTime;
-use \DateInterval;
+use DateTime;
+use DateInterval;
 
 /**
  * CalendarViewDateTime
@@ -33,7 +33,7 @@ class CalendarViewDateTime extends DateTime
     {
         parent::__construct($time, $timezone);
 
-        $this->interval = new \DateInterval($this->intervalString);
+        $this->interval = new DateInterval($this->intervalString);
     }
 
     /**

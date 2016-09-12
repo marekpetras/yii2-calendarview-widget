@@ -21,13 +21,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist marekpetras/yii2-calendarview-widget "dev-master"
+php composer.phar require --prefer-dist marekpetras/yii2-calendarview-widget "^1.0"
 ```
 
 or add
 
 ```
-"marekpetras/yii2-calendarview-widget": "dev-master"
+"marekpetras/yii2-calendarview-widget": "^1.0"
 ```
 
 to the require section of your `composer.json` file.
@@ -150,6 +150,7 @@ echo CalendarView::widget(
 
 
         // optional params with their defaults
+        'unixTimestamp' => false, // indicate whether you use unix timestamp instead of a date/datetime format in the data provider
         'weekStart' => 1, // date('w') // which day to display first in the calendar
         'title'     => 'Calendar',
 
